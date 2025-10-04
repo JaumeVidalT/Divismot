@@ -10,16 +10,19 @@ public class HandlerWords : MonoBehaviour
     private int numeroCortesRealizados=0;
     [SerializeField]private float sizeWord=0.15f;
     private List<Palabra> EnciclopediaDePalabras = new List<Palabra>();
-    private int PalabrasGuardadas;
+    [SerializeField]private int PalabrasGuardadas =20;
     [SerializeField] List<string> palabrasParaLaLista=new List<string>();
     [SerializeField] List<Corte> ValorCortes = new List<Corte>();
     private int palabraSeleccionada;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {        
-        
-        setFillWord();
-        if (palabrasParaLaLista.Count < PalabrasGuardadas || ValorCortes.Count < PalabrasGuardadas) { return; }
+               
+        if (palabrasParaLaLista.Count < PalabrasGuardadas || ValorCortes.Count < PalabrasGuardadas)
+        {
+            Debug.LogError("Listas incompletas!");
+            return; 
+        }
         for(int i = 0; i < PalabrasGuardadas;i++)
         {
             Palabra newPalabra = new Palabra();
@@ -29,6 +32,7 @@ public class HandlerWords : MonoBehaviour
         palabraSeleccionada =Random.Range(0,PalabrasGuardadas-1);
         palabraActual = EnciclopediaDePalabras[palabraSeleccionada];
         palabra.text = palabraActual.GetPalabra();
+        setFillWord();
 
 
     }

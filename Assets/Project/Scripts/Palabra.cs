@@ -3,7 +3,7 @@ using System.Numerics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-public class Palabra : MonoBehaviour
+public class Palabra
 {
     private string palabra;
     private List<int> cortesCorrectos;

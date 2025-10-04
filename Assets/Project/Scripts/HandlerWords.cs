@@ -9,13 +9,26 @@ public class HandlerWords : MonoBehaviour
     [SerializeField]private TMP_Text palabra;
     private int numeroCortesRealizados=0;
     [SerializeField]private float sizeWord=0.15f;
+    private List<Palabra> EnciclopediaDePalabras = new List<Palabra>();
+    private int PalabrasGuardadas;
+    [SerializeField] List<string> palabrasParaLaLista=new List<string>();
+    [SerializeField] List<Corte> ValorCortes = new List<Corte>();
+    private int palabraSeleccionada;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {        
-        palabraActual.Init("HOLA", new List<int> { 1,5});
-        palabra.text = palabraActual.GetPalabra();
+        
         setFillWord();
-
+        if (palabrasParaLaLista.Count < PalabrasGuardadas || ValorCortes.Count < PalabrasGuardadas) { return; }
+        for(int i = 0; i < PalabrasGuardadas;i++)
+        {
+            Palabra newPalabra = new Palabra();
+            newPalabra.Init(palabrasParaLaLista[i], ValorCortes[i].valores);
+            EnciclopediaDePalabras.Add(newPalabra); 
+        }
+        palabraSeleccionada =Random.Range(0,PalabrasGuardadas-1);
+        palabraActual = EnciclopediaDePalabras[palabraSeleccionada];
+        palabra.text = palabraActual.GetPalabra();
 
 
     }
@@ -27,14 +40,21 @@ public class HandlerWords : MonoBehaviour
         {
             if (palabraActual.CommpairCortes())
             {
+                
                 Debug.Log("win");
             }
             else
             {
                 Debug.Log("Loser");
             }
+            NextWord();
         }
         
+    }
+    private void NextWord()
+    {
+        palabraSeleccionada++;
+        palabraActual = EnciclopediaDePalabras[(palabraSeleccionada) % PalabrasGuardadas];
     }
     private void setFillWord()
     {

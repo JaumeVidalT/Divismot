@@ -3,7 +3,7 @@ using System.Numerics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-public class Palabra
+public class Palabra : MonoBehaviour
 {
     private string palabra;
     private List<int> cortesCorrectos;
@@ -18,13 +18,19 @@ public class Palabra
     public bool CommpairCortes()
     {
         if (cortesCorrectos.Count > cortesInput.Count) return false;
+        int contadorCiertos=0;
         for (int i = 0; i < cortesCorrectos.Count; i++)
         {
-            if (cortesCorrectos[i] != cortesInput[i])
+            for(int j = 0; j < cortesInput.Count; j++)
             {
-                return false;
+                if (cortesCorrectos[i] == cortesInput[j])
+                {
+                    contadorCiertos++;
+                }
             }
+            
         }
+        if( contadorCiertos != cortesCorrectos.Count) { return false; }
         return true;//Como si no detecta nada mal puede seguir
 
     }

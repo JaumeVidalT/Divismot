@@ -7,14 +7,16 @@ public class HandlerWords : MonoBehaviour
 {
     private Palabra palabraActual= new Palabra();
     [SerializeField]private TMP_Text palabra;
-    [SerializeField] private GameObject prefabButton;
     private int numeroCortesRealizados=0;
+    [SerializeField]private float sizeWord=0.15f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {        
         palabraActual.Init("HOLA", new List<int> { 1,5});
         palabra.text = palabraActual.GetPalabra();
-        
+        setFillWord();
+
+
 
     }
 
@@ -33,6 +35,15 @@ public class HandlerWords : MonoBehaviour
             }
         }
         
+    }
+    private void setFillWord()
+    {
+        Image imagenActual= this .GetComponent<Image>();
+        imagenActual.fillAmount = 0;
+        for (int i = 0; i < palabraActual.GetPalabra().Length; i++)
+        {
+            imagenActual.fillAmount += sizeWord;
+        }
     }
     public void AddCortes(int posicion)
     {
